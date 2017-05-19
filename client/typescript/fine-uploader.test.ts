@@ -3,7 +3,11 @@
 /**
  * Prepare/set options for the core + UI FineUploader
  */
-let uiOptions: FineUploader.UIOptions = {
+
+
+import{FineUploader, UIOptions} from 'fine-uploader';
+
+let uiOptions: UIOptions = {
     debug: false,
     autoUpload: false,
     element: document.getElementById('fine-uploader-manual-trigger'),
@@ -23,12 +27,17 @@ let uiOptions: FineUploader.UIOptions = {
 /**
  * Instantiate the FineUploader and pass in the uiOptions
  */
-let uploader: FineUploader.qq = new qq.FineUploader(uiOptions);
+let uploader: FineUploader = new FineUploader(uiOptions);
+
+
+
+
+import {s3} from 'fine-uploader/lib/s3'
 
 /**
  * Prepare/set options for the Amazon S3 FineUploader
  */
-let s3UIOptions: FineUploader.S3UIOptions = {
+let s3UIOptions: s3.S3UIOptions = {
     debug: true,
     element: document.getElementById('fine-uploader'),
     request: {
@@ -52,12 +61,14 @@ let s3UIOptions: FineUploader.S3UIOptions = {
         endpoint: '/s3handler'
     }
 }
-let s3Uploader: FineUploader.qq = new qq.s3.FineUploader(s3UIOptions);
+let s3Uploader: s3.FineUploader = new s3.FineUploader(s3UIOptions);
 
+
+import {azure} from 'fine-uploader/lib/azure';
 /**
  * Prepare/set options for the Amazon S3 FineUploader
  */
-let azureUIOptions: FineUploader.AzureUIOptions = {
+let azureUIOptions: azure.AzureUIOptions = {
     element: document.getElementById('fine-uploader'),
     request: {
         endpoint: 'https://{ YOUR_STORAGE_ACCOUNT_NAME }.blob.core.windows.net/{ YOUR_CONTAINER_NAME }'
@@ -75,7 +86,7 @@ let azureUIOptions: FineUploader.AzureUIOptions = {
         enabled: true
     }
 }
-let azureUploader: FineUploader.qq = new qq.s3.FineUploader(azureUIOptions);
+let azureUploader: azure.FineUploader = new azure.FineUploader(azureUIOptions);
 
 /**
  * Manually upload files to the server. This method should be called on some button click event
@@ -85,18 +96,20 @@ s3Uploader.uploadStoredFiles();
 azureUploader.uploadStoredFiles();
 
 
+// Not sure if it is necessary to expose these to typescript users?
+// //utility functions
+// let myDiv: HTMLElement, qqMyDiv: FineUploader.qq;
+// myDiv = document.getElementById("myDiv");
+// qqMyDiv = qq(myDiv);
+//
+// // Now we can call other qq methods:
+// qqMyDiv.hide();
+// let children: HTMLElement[] = qqMyDiv.children(myDiv);
 
-//utility functions
-let myDiv: HTMLElement, qqMyDiv: FineUploader.qq;
-myDiv = document.getElementById("myDiv");
-qqMyDiv = qq(myDiv);
-
-// Now we can call other qq methods:
-qqMyDiv.hide();
-let children: HTMLElement[] = qqMyDiv.children(myDiv);
+import{Promise, PromiseOptions} from 'fine-uploader/lib/core'
 
 //FineUploader's Promise Implementation
-let promise:FineUploader.PromiseOptions = new qq.Promise();
+let promise:PromiseOptions = new Promise();
 let result = {};
 promise.failure(result);
 promise.success(result);
