@@ -2940,7 +2940,7 @@ declare module "fine-uploader/lib/azure" {
         /**
          * AzureUIOptions
          */
-        export interface AzureUIOptions extends UIOptions {
+        export interface AzureUIOptions extends UIOptions, AzureCoreOptions {
             /**
              * failedUploadText options
              */
@@ -3501,7 +3501,7 @@ declare module "fine-uploader/lib/s3" {
         /**
          * S3UIOptions
          */
-        export interface S3UIOptions extends UIOptions {
+        export interface S3UIOptions extends UIOptions, S3CoreOptions {
             /**
              * failedUploadText options
              */
