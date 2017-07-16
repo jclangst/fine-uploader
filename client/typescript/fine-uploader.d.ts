@@ -1,10 +1,6 @@
 // Type definitions for FineUploader 5.x.x
 // Project: http://fineuploader.com/
 // Definitions by: Sukhdeep Singh <https://github.com/SinghSukhdeep>
-//
-// declare module "qq"{
-//     export = qq;
-// }
 
 
 declare module "fine-uploader/lib/core" {
@@ -15,7 +11,7 @@ declare module "fine-uploader/lib/core" {
         /**
          * The FineUploader Core only constructor
          */
-        constructor (fineuploaderOptions?: CoreOptions);
+        constructor(fineuploaderOptions?: CoreOptions);
 
         /**
          * FineUploader's Promise implementation
@@ -30,12 +26,12 @@ declare module "fine-uploader/lib/core" {
          * @param string endpoint : The endpoint to send this file to
          */
         addFiles(files: File[]
-                     | HTMLInputElement[]
-                     | Blob[]
-                     | BlobWrapper
-                     | HTMLCanvasElement[]
-                     | CanvasWrapper
-                     | FileList, params?: any, endpoint?: string): void;
+            | HTMLInputElement[]
+            | Blob[]
+            | BlobWrapper
+            | HTMLCanvasElement[]
+            | CanvasWrapper
+            | FileList, params?: any, endpoint?: string): void;
 
         /**
          * Submit one or more canned/initial files to the uploader
@@ -356,7 +352,7 @@ declare module "fine-uploader/lib/core" {
         hasAttribute(attributeName: string): boolean;
 
         /**
-         * Clears all text for this element**
+         * Clears all text for this element
          */
         clearText(): void;
 
@@ -491,7 +487,7 @@ declare module "fine-uploader/lib/core" {
         getExtension(filename: string): string;
 
         /**
-         * Returns a version4 uuid**
+         * Returns a version4 uuid
          *
          * @returns string : A version 4 unique identifier
          */
@@ -861,7 +857,7 @@ declare module "fine-uploader/lib/core" {
         /**
          * ExtraButtonsOptions
          */
-        extraButtons?: ExtraButtonsOptions;
+        extraButtons?: ExtraButtonsOptions[];
         /**
          * FormOptions
          */
@@ -1665,7 +1661,7 @@ declare module "fine-uploader/lib/core" {
      */
     export interface CoreEvents {
         /**
-         * Called before each automatic retry attempt for a failed item**
+         * Called before each automatic retry attempt for a failed item
          */
         onAutoRetry?: OnAutoRetry;
         /**
@@ -1703,11 +1699,11 @@ declare module "fine-uploader/lib/core" {
          */
         onDelete?: OnDelete;
         /**
-         * Called just after receiving a response from the server for a delete file request**
+         * Called just after receiving a response from the server for a delete file request
          */
         onDeleteComplete?: OnDeleteComplete;
         /**
-         * Called whenever an exceptional condition occurs**
+         * Called whenever an exceptional condition occurs
          */
         onError?: OnError;
         /**
@@ -1775,7 +1771,7 @@ declare module "fine-uploader/lib/core" {
          */
         onStatusChange?: OnStatusChange;
         /**
-         * Called when the item has been selected and is a candidate for uploading**
+         * Called when the item has been selected and is a candidate for uploading
          *
          * This does not mean the item is going to be uploaded. Return `false` to prevent submission to the uploader.
          *
@@ -1785,7 +1781,7 @@ declare module "fine-uploader/lib/core" {
          */
         onSubmit?: OnSubmit;
         /**
-         * Called before an item has been marked for deletion has been submitted to the uploader**
+         * Called before an item has been marked for deletion has been submitted to the uploader
          *
          * A promise can be used if non-blocking work is required.
          * Processing of this item is deferred until the promise is fullfilled.
@@ -1876,7 +1872,7 @@ declare module "fine-uploader/lib/core" {
          * @param number id : The current file's id
          * @param string name : The current file's name
          */
-        (id: number, name: string):  boolean | PromiseOptions | void;
+        (id: number, name: string): boolean | PromiseOptions | void;
     }
 
     /**
@@ -2151,7 +2147,7 @@ declare module "fine-uploader/lib/core" {
 
 declare module "fine-uploader" {
 
-    import{
+    import {
         FineUploaderBasic,
         CoreOptions,
         DeleteFileOptions,
@@ -2611,7 +2607,7 @@ declare module "fine-uploader" {
 
 declare module "fine-uploader/lib/azure" {
 
-    import{
+    import {
         FineUploader as FineUploaderCore,
         UIOptions,
         UIDeleteFileOptions,
@@ -2636,7 +2632,7 @@ declare module "fine-uploader/lib/azure" {
     export namespace azure {
 
 
-        export class FineUploader extends FineUploaderCore{
+        export class FineUploader extends FineUploaderCore {
 
             /**
              * The FineUploader Azure Core + UI constructor
@@ -2688,7 +2684,7 @@ declare module "fine-uploader/lib/azure" {
             setUploadSuccessParams(newParams: any, id?: number): void;
         }
 
-        export class FineUploaderBasic extends FineUploaderBasicCore{
+        export class FineUploaderBasic extends FineUploaderBasicCore {
 
             /**
              * The FineUploader Azure Core only constructor
@@ -2990,7 +2986,7 @@ declare module "fine-uploader/lib/azure" {
 
 declare module "fine-uploader/lib/s3" {
 
-    import{
+    import {
         FineUploader as FineUploaderCore,
         UIOptions,
         UIDeleteFileOptions,
@@ -3016,7 +3012,7 @@ declare module "fine-uploader/lib/s3" {
     export namespace s3 {
 
 
-        export class FineUploader extends FineUploaderCore{
+        export class FineUploader extends FineUploaderCore {
 
             constructor(fineuploaderOptions?: S3UIOptions);
 
@@ -3092,7 +3088,7 @@ declare module "fine-uploader/lib/s3" {
             setUploadSuccessParams(newParams: any, id?: number): void;
         }
 
-        export class FineUploaderBasic extends FineUploaderBasicCore{
+        export class FineUploaderBasic extends FineUploaderBasicCore {
 
             constructor(fineuploaderOptions?: S3CoreOptions);
 
