@@ -1,12 +1,11 @@
-/// <reference types="fine-uploader" />
+import { FineUploader, UIOptions } from 'fine-uploader';
+import { s3 } from 'fine-uploader/lib/s3';
+import { azure } from 'fine-uploader/lib/azure';
+import { PromiseOptions } from 'fine-uploader/lib/core';
 
 /**
  * Prepare/set options for the core + UI FineUploader
  */
-
-
-import{FineUploader, UIOptions} from 'fine-uploader';
-
 let uiOptions: UIOptions = {
     debug: false,
     autoUpload: false,
@@ -27,12 +26,8 @@ let uiOptions: UIOptions = {
 /**
  * Instantiate the FineUploader and pass in the uiOptions
  */
-let uploader: FineUploader = new FineUploader(uiOptions);
+let uploader = new FineUploader(uiOptions);
 
-
-
-
-import {s3} from 'fine-uploader/lib/s3'
 
 /**
  * Prepare/set options for the Amazon S3 FineUploader
@@ -61,10 +56,10 @@ let s3UIOptions: s3.S3UIOptions = {
         endpoint: '/s3handler'
     }
 }
-let s3Uploader: s3.FineUploader = new s3.FineUploader(s3UIOptions);
+let s3Uploader = new s3.FineUploader(s3UIOptions);
 
 
-import {azure} from 'fine-uploader/lib/azure';
+
 /**
  * Prepare/set options for the Amazon S3 FineUploader
  */
@@ -86,7 +81,7 @@ let azureUIOptions: azure.AzureUIOptions = {
         enabled: true
     }
 }
-let azureUploader: azure.FineUploader = new azure.FineUploader(azureUIOptions);
+let azureUploader = new azure.FineUploader(azureUIOptions);
 
 /**
  * Manually upload files to the server. This method should be called on some button click event
@@ -95,29 +90,16 @@ uploader.uploadStoredFiles();
 s3Uploader.uploadStoredFiles();
 azureUploader.uploadStoredFiles();
 
-
-// Not sure if it is necessary to expose these to typescript users?
-// //utility functions
-// let myDiv: HTMLElement, qqMyDiv: FineUploader.qq;
-// myDiv = document.getElementById("myDiv");
-// qqMyDiv = qq(myDiv);
-//
-// // Now we can call other qq methods:
-// qqMyDiv.hide();
-// let children: HTMLElement[] = qqMyDiv.children(myDiv);
-
-import{Promise, PromiseOptions} from 'fine-uploader/lib/core'
-
 //FineUploader's Promise Implementation
-let promise:PromiseOptions = new Promise();
+let promise: PromiseOptions = new uploader.Promise();
 let result = {};
 promise.failure(result);
 promise.success(result);
 promise.then(() => {
-//promise is successfully fulfilled, do something here
+    //promise is successfully fulfilled, do something here
 }, () => {
-//promise is un-successfully fulfilled, do something here
+    //promise is un-successfully fulfilled, do something here
 });
 promise.done(() => {
-//promise is fulfilled whether successful or not, do something here
+    //promise is fulfilled whether successful or not, do something here
 });

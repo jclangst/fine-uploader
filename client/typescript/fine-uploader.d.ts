@@ -2328,7 +2328,7 @@ declare module "fine-uploader" {
      * function for `showPrompt` option
      */
     export interface ShowPromptFunction {
-        (message: string, defaultValue: string | number): PromiseOptions | void;
+        (message: string, defaultValue: string): PromiseOptions | void;
     }
 
     /**
