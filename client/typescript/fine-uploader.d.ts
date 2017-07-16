@@ -1240,7 +1240,7 @@ declare module "fine-uploader/lib/core" {
          */
         onLeave?: string;
         /**
-         * Text passed to the error event handler if a retry attempt is d a failed due to a violation of the `validation.itemLimit` rule
+         * Text passed to the error event handler if a retry attempt is declared a failed due to a violation of the `validation.itemLimit` rule
          *
          * @default `'Retry failed - you have reached your file limit.'`
          */
@@ -2091,7 +2091,7 @@ declare module "fine-uploader/lib/core" {
          * @param string name : The current file's name
          * @param ChunkData chunkData : An object encapsulating the current chunk of data about to be uploaded
          */
-        constructor(id: number, name: string, chunkData: ChunkData);
+        (id: number, name: string, chunkData: ChunkData): void;
     }
 
     /**
@@ -2104,7 +2104,7 @@ declare module "fine-uploader/lib/core" {
          * @param Object responseJSON : The raw response from the server
          * @param XMLHttpRequest xhr : The object used to make the request
          */
-        constructor(id: number, chunkData: ChunkData, responseJSON: any, xhr: XMLHttpRequest);
+        (id: number, chunkData: ChunkData, responseJSON: any, xhr: XMLHttpRequest): void;
     }
 
     /**
@@ -2129,7 +2129,7 @@ declare module "fine-uploader/lib/core" {
          * @param BlobDataObject data : An object with a name and size property
          * @param HTMLElement buttonContainer : The button corresponding to the respective file if the file was submitted to Fine Uploader using a tracked button
          */
-        constructor(data: BlobDataObject, buttonContainer?: HTMLElement);
+        (data: BlobDataObject, buttonContainer?: HTMLElement): PromiseOptions | void;
     }
 
     /**
@@ -2140,7 +2140,7 @@ declare module "fine-uploader/lib/core" {
          * @param BlobDataObject[] fileOrBlobDataArray : An array of Objects with name and size properties
          * @param HTMLElement buttonContainer : The button corresponding to the respective file if the file was submitted to Fine Uploader using a tracked button
          */
-        constructor(fileOrBlobDataArray: BlobDataObject[], buttonContainer: HTMLElement);
+        (fileOrBlobDataArray: BlobDataObject[], buttonContainer: HTMLElement): PromiseOptions | void;
     }
 
 }
@@ -2627,7 +2627,8 @@ declare module "fine-uploader/lib/azure" {
         CorsOptions,
         RequestOptions,
         CoreOptions,
-        ResumableFileObject
+        ResumableFileObject,
+        PromiseOptions
     } from 'fine-uploader/lib/core';
 
 
@@ -2750,7 +2751,7 @@ declare module "fine-uploader/lib/azure" {
              *
              * @default `5242880`
              */
-            partSize: number;
+            partSize?: number;
             /**
              * Files smaller than this value will not be chunked.
              *
@@ -2768,14 +2769,14 @@ declare module "fine-uploader/lib/azure" {
              *
              * @default `true`
              */
-            allowXdr: boolean;
+            allowXdr?: boolean;
         }
 
         /**
          * AzureBlobPropertyNameFunction
          */
         export interface AzureBlobPropertyNameFunction {
-            constructor(id: number);
+            (id: number): PromiseOptions | string;
         }
 
         /**
@@ -2827,7 +2828,7 @@ declare module "fine-uploader/lib/azure" {
          * type for Azure's customHeaders function
          */
         export interface AzureCustomHeaderFunction {
-            constructor(id: number);
+            (id: number): void;
         }
 
         /**
@@ -2837,7 +2838,7 @@ declare module "fine-uploader/lib/azure" {
             /**
              * Additional headers sent along with each signature request.
              *
-             * If you  a function as the value, the associated file's ID will be passed to your function when it is invoked
+             * If you declare a function as the value, the associated file's ID will be passed to your function when it is invoked
              *
              * @default `{}`
              */
@@ -3006,7 +3007,8 @@ declare module "fine-uploader/lib/s3" {
         RequestOptions,
         CoreOptions,
         ResumableFileObject,
-        CoreEvents
+        CoreEvents,
+        PromiseOptions
     } from 'fine-uploader/lib/core';
 
 
@@ -3177,25 +3179,25 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `null`
              */
-            accessKey: string;
+            accessKey?: string;
             /**
              * Expiration date for temporary credentials. May be an ISO 8601 String or a `Date` object.
              *
              * @default `null`
              */
-            expiration: string | Date;
+            expiration?: string | Date;
             /**
              * Temporary secret AWS key
              *
              * @default `null`
              */
-            secretKey: string;
+            secretKey?: string;
             /**
              * Session token associated with the temporary credentials
              *
              * @default `null`
              */
-            sessionToken: string;
+            sessionToken?: string;
         }
 
         /**
@@ -3207,7 +3209,7 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `5242880`
              */
-            partSize: number;
+            partSize?: number;
         }
 
         /**
@@ -3219,7 +3221,7 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `true`
              */
-            allowXdr: boolean;
+            allowXdr?: boolean;
         }
 
         /**
@@ -3232,28 +3234,28 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `null`
              */
-            localBlankPagePath: string;
+            localBlankPagePath?: string;
         }
 
         /**
          * type for S3's bucket object property
          */
         export interface BucketFunction {
-            constructor(id: number);
+            (id: number): PromiseOptions | string;
         }
 
         /**
          * type for S3's host object property
          */
         export interface HostFunction {
-            constructor(id: number);
+            (id: number): PromiseOptions | string;
         }
 
         /**
          * type for S3's key object property
          */
         export interface KeyFunction {
-            constructor(id: number);
+            (id: number): PromiseOptions | string;
         }
 
         /**
@@ -3265,7 +3267,7 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `'private'`
              */
-            acl: string;
+            acl?: string;
             /**
              * Describes the name of the bucket used to house the file in S3.
              *
@@ -3277,7 +3279,7 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `(assumes the bucket can be determined by parsing the endpoint string)`
              */
-            bucket: string | BucketFunction;
+            bucket?: string | BucketFunction;
             /**
              * The hostname of your S3 bucket.
              *
@@ -3289,7 +3291,7 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `(uses the request endpoint to determine the hostname)`
              */
-            host: string | HostFunction;
+            host?: string | HostFunction;
             /**
              * Describes the object key used to identify the file in your S3 bucket.
              *
@@ -3300,25 +3302,25 @@ declare module "fine-uploader/lib/s3" {
              *
              * @default `'uuid'`
              */
-            key: string | KeyFunction;
+            key?: string | KeyFunction;
             /**
              * Set this to true if you would like to use the reduced redundancy storage class for all objects uploaded to S3
              *
              * @default `false`
              */
-            reducedRedundancy: boolean;
+            reducedRedundancy?: boolean;
             /**
              * Version 4 signatures only: The S3 region identifier for the target bucket
              *
              * @default `'us-east-1'`
              */
-            region: string;
+            region?: string;
             /**
              * Set this to true if you would like all uploaded files to be encrypted by AWS
              *
              * @default `false`
              */
-            serverSideEncryption: boolean;
+            serverSideEncryption?: boolean;
         }
 
         /**
@@ -3366,7 +3368,7 @@ declare module "fine-uploader/lib/s3" {
          * type for S3's customHeaders function
          */
         export interface S3CustomHeaderFunction {
-            constructor(id: number);
+            (id: number): void;
         }
 
         /**
@@ -3376,7 +3378,7 @@ declare module "fine-uploader/lib/s3" {
             /**
              * Additional headers sent along with each signature request.
              *
-             * If you  a function as the value, the associated file's ID will be passed to your function when it is invoked
+             * If you declare a function as the value, the associated file's ID will be passed to your function when it is invoked
              *
              * @default `{}`
              */
@@ -3482,7 +3484,7 @@ declare module "fine-uploader/lib/s3" {
          * onCredentialsExpired function type
          */
         export interface OnCredentialsExpired {
-            constructor();
+            (): PromiseOptions;
         }
 
         /**
